@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Minder.DataAccess.Models;
 
 #nullable disable
@@ -17,12 +19,12 @@ namespace Minder.DataAccess.Context
         }
 
         public virtual DbSet<Device> Devices { get; set; }
-        public virtual DbSet<DeviceMetadatum> DeviceMetadata { get; set; }
+        public virtual DbSet<DeviceMetadata> DeviceMetadatas { get; set; }
         public virtual DbSet<DevicePart> DeviceParts { get; set; }
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
-        public virtual DbSet<Equipment> Equipment { get; set; }
+        public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
-        public virtual DbSet<Metadatum> Metadata { get; set; }
+        public virtual DbSet<Metadata> Metadatas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,8 +40,6 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<Device>(entity =>
             {
-                entity.ToTable("Device");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).IsRequired();
@@ -53,21 +53,22 @@ namespace Minder.DataAccess.Context
                     .HasConstraintName("FK_Device_DeviceType");
             });
 
-            modelBuilder.Entity<DeviceMetadatum>(entity =>
+            modelBuilder.Entity<DeviceMetadata>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.MetadataId, e.DeviceId })
+                    .HasName("PK_DeviceMetadata");
 
                 entity.HasIndex(e => new { e.MetadataId, e.DeviceId }, "IX_DeviceMetadata")
                     .IsUnique();
 
                 entity.HasOne(d => d.Device)
-                    .WithMany()
+                    .WithMany(p => p.DeviceMetadata)
                     .HasForeignKey(d => d.DeviceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DeviceMetadata_Device");
 
                 entity.HasOne(d => d.Metadata)
-                    .WithMany()
+                    .WithMany(p => p.DeviceMetadata)
                     .HasForeignKey(d => d.MetadataId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DeviceMetadata_Metadata");
@@ -75,8 +76,6 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<DevicePart>(entity =>
             {
-                entity.ToTable("DevicePart");
-
                 entity.HasOne(d => d.Device)
                     .WithMany(p => p.DeviceParts)
                     .HasForeignKey(d => d.DeviceId)
@@ -91,8 +90,6 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<DeviceType>(entity =>
             {
-                entity.ToTable("DeviceType");
-
                 entity.Property(e => e.Name).IsRequired();
             });
 
@@ -107,27 +104,26 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<EquipmentDevicePart>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.ToTable("EquipmentDevicePart");
+                entity.HasKey(e => new { e.EquipmentId, e.DevicePartId })
+                    .HasName("PK_EquipmentDevicePart");
 
                 entity.HasIndex(e => new { e.EquipmentId, e.DevicePartId }, "IX_EquipmentDevicePart")
                     .IsUnique();
 
                 entity.HasOne(d => d.DevicePart)
-                    .WithMany()
+                    .WithMany(p => p.EquipmentDeviceParts)
                     .HasForeignKey(d => d.DevicePartId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EquipmentDevicePart_DevicePart");
 
                 entity.HasOne(d => d.Equipment)
-                    .WithMany()
+                    .WithMany(p => p.EquipmentDeviceParts)
                     .HasForeignKey(d => d.EquipmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EquipmentDevicePart_Equipment");
             });
 
-            modelBuilder.Entity<Metadatum>(entity =>
+            modelBuilder.Entity<Metadata>(entity =>
             {
                 entity.Property(e => e.Name).IsRequired();
 

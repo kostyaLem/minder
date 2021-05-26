@@ -9,6 +9,7 @@ namespace Minder.DataAccess.Models
     {
         public DevicePart()
         {
+            EquipmentDeviceParts = new HashSet<EquipmentDevicePart>();
             InverseParentDevicePart = new HashSet<DevicePart>();
         }
 
@@ -18,6 +19,7 @@ namespace Minder.DataAccess.Models
 
         public virtual Device Device { get; set; }
         public virtual DevicePart ParentDevicePart { get; set; }
+        public virtual ICollection<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
         public virtual ICollection<DevicePart> InverseParentDevicePart { get; set; }
     }
 }

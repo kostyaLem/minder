@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Minder.DataAccess.Models
 {
-    public partial class DeviceMetadatum
+    public partial class DeviceMetadata
     {
         public int MetadataId { get; set; }
         public int DeviceId { get; set; }
 
         public virtual Device Device { get; set; }
-        public virtual Metadatum Metadata { get; set; }
+        public virtual Metadata Metadata { get; set; }
     }
 }

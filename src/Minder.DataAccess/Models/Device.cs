@@ -9,6 +9,7 @@ namespace Minder.DataAccess.Models
     {
         public Device()
         {
+            DeviceMetadata = new HashSet<DeviceMetadata>();
             DeviceParts = new HashSet<DevicePart>();
         }
 
@@ -22,6 +23,7 @@ namespace Minder.DataAccess.Models
         public int DeviceTypeId { get; set; }
 
         public virtual DeviceType DeviceType { get; set; }
+        public virtual ICollection<DeviceMetadata> DeviceMetadata { get; set; }
         public virtual ICollection<DevicePart> DeviceParts { get; set; }
     }
 }
