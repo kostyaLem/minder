@@ -21,21 +21,16 @@ namespace Minder.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Equipments",
+                name: "EmployeesPositions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    IsUsed = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Equipments", x => x.Id);
+                    table.PrimaryKey("PK_EmployeesPositions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,6 +45,25 @@ namespace Minder.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Metadatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Software",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Software", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,6 +87,32 @@ namespace Minder.DataAccess.Migrations
                         name: "FK_Device_DeviceType",
                         column: x => x.DeviceTypeId,
                         principalTable: "DeviceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LocationInOffice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PositionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_EmployeesPositions",
+                        column: x => x.PositionId,
+                        principalTable: "EmployeesPositions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -128,6 +168,30 @@ namespace Minder.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Equipments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    UsedByEmpolyeeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Equipments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Equipments_Employees",
+                        column: x => x.UsedByEmpolyeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EquipmentDeviceParts",
                 columns: table => new
                 {
@@ -147,6 +211,30 @@ namespace Minder.DataAccess.Migrations
                         name: "FK_EquipmentDevicePart_Equipment",
                         column: x => x.EquipmentId,
                         principalTable: "Equipments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EquipmentsSoftwaries",
+                columns: table => new
+                {
+                    SoftwareId = table.Column<int>(type: "int", nullable: false),
+                    EquipmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EquipmentsSoftwaries", x => new { x.SoftwareId, x.EquipmentId });
+                    table.ForeignKey(
+                        name: "FK_EquipmentsSoftwaries_Equipments",
+                        column: x => x.EquipmentId,
+                        principalTable: "Equipments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EquipmentsSoftwaries_Software",
+                        column: x => x.SoftwareId,
+                        principalTable: "Software",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -178,6 +266,11 @@ namespace Minder.DataAccess.Migrations
                 column: "DeviceTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employees_PositionId",
+                table: "Employees",
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EquipmentDevicePart",
                 table: "EquipmentDeviceParts",
                 columns: new[] { "EquipmentId", "DevicePartId" },
@@ -187,6 +280,16 @@ namespace Minder.DataAccess.Migrations
                 name: "IX_EquipmentDeviceParts_DevicePartId",
                 table: "EquipmentDeviceParts",
                 column: "DevicePartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Equipments_UsedByEmpolyeeId",
+                table: "Equipments",
+                column: "UsedByEmpolyeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EquipmentsSoftwaries_EquipmentId",
+                table: "EquipmentsSoftwaries",
+                column: "EquipmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -198,6 +301,9 @@ namespace Minder.DataAccess.Migrations
                 name: "EquipmentDeviceParts");
 
             migrationBuilder.DropTable(
+                name: "EquipmentsSoftwaries");
+
+            migrationBuilder.DropTable(
                 name: "Metadatas");
 
             migrationBuilder.DropTable(
@@ -207,10 +313,19 @@ namespace Minder.DataAccess.Migrations
                 name: "Equipments");
 
             migrationBuilder.DropTable(
+                name: "Software");
+
+            migrationBuilder.DropTable(
                 name: "Devices");
 
             migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
                 name: "DeviceTypes");
+
+            migrationBuilder.DropTable(
+                name: "EmployeesPositions");
         }
     }
 }

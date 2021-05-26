@@ -113,6 +113,63 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("DeviceTypes");
                 });
 
+            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LocationInOffice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("Minder.DataAccess.Models.EmployeesPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Name")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeesPositions");
+                });
+
             modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>
                 {
                     b.Property<int>("Id")
@@ -129,9 +186,6 @@ namespace Minder.DataAccess.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -139,7 +193,12 @@ namespace Minder.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("UsedByEmpolyeeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsedByEmpolyeeId");
 
                     b.ToTable("Equipments");
                 });
@@ -280,6 +339,27 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("ParentDevicePart");
                 });
 
+            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+                {
+                    b.HasOne("Minder.DataAccess.Models.EmployeesPosition", "Position")
+                        .WithMany("Employees")
+                        .HasForeignKey("PositionId")
+                        .HasConstraintName("FK_Employees_EmployeesPositions")
+                        .IsRequired();
+
+                    b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>
+                {
+                    b.HasOne("Minder.DataAccess.Models.Employee", "UsedByEmpolyee")
+                        .WithMany("Equipment")
+                        .HasForeignKey("UsedByEmpolyeeId")
+                        .HasConstraintName("FK_Equipments_Employees");
+
+                    b.Navigation("UsedByEmpolyee");
+                });
+
             modelBuilder.Entity("Minder.DataAccess.Models.EquipmentDevicePart", b =>
                 {
                     b.HasOne("Minder.DataAccess.Models.DevicePart", "DevicePart")
@@ -335,6 +415,16 @@ namespace Minder.DataAccess.Migrations
             modelBuilder.Entity("Minder.DataAccess.Models.DeviceType", b =>
                 {
                     b.Navigation("Devices");
+                });
+
+            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+                {
+                    b.Navigation("Equipment");
+                });
+
+            modelBuilder.Entity("Minder.DataAccess.Models.EmployeesPosition", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>

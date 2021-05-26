@@ -22,6 +22,8 @@ namespace Minder.DataAccess.Context
         public virtual DbSet<DeviceMetadata> DeviceMetadatas { get; set; }
         public virtual DbSet<DevicePart> DeviceParts { get; set; }
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
         public virtual DbSet<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
@@ -104,6 +106,28 @@ namespace Minder.DataAccess.Context
                 entity.Property(e => e.Name).IsRequired();
             });
 
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.FullName).IsRequired();
+
+                entity.Property(e => e.Phone).HasMaxLength(50);
+
+                entity.HasOne(d => d.Position)
+                    .WithMany(p => p.Employees)
+                    .HasForeignKey(d => d.PositionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Employees_EmployeesPositions");
+            });
+
+            modelBuilder.Entity<EmployeesPosition>(entity =>
+            {
+                entity.Property(e => e.Name).IsRequired();
+            });
+
             modelBuilder.Entity<Equipment>(entity =>
             {
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
@@ -111,6 +135,11 @@ namespace Minder.DataAccess.Context
                 entity.Property(e => e.Name).IsRequired();
 
                 entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.UsedByEmpolyee)
+                    .WithMany(p => p.Equipment)
+                    .HasForeignKey(d => d.UsedByEmpolyeeId)
+                    .HasConstraintName("FK_Equipments_Employees");
             });
 
             modelBuilder.Entity<EquipmentDevicePart>(entity =>

@@ -19,8 +19,9 @@ namespace Minder.DataAccess.Models
         public byte[] Image { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public bool IsUsed { get; set; }
+        public int? UsedByEmpolyeeId { get; set; }
 
+        public virtual Employee UsedByEmpolyee { get; set; }
         public virtual ICollection<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
         public virtual ICollection<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
     }
