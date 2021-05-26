@@ -24,12 +24,15 @@ namespace Minder.DataAccess.Context
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
         public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
+        public virtual DbSet<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
         public virtual DbSet<Metadata> Metadatas { get; set; }
+        public virtual DbSet<Software> Softwares { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=minderdb;Trusted_Connection=True");
             }
         }
@@ -40,6 +43,8 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<Device>(entity =>
             {
+                entity.HasIndex(e => e.DeviceTypeId, "IX_Devices_DeviceTypeId");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).IsRequired();
@@ -61,6 +66,8 @@ namespace Minder.DataAccess.Context
                 entity.HasIndex(e => new { e.MetadataId, e.DeviceId }, "IX_DeviceMetadata")
                     .IsUnique();
 
+                entity.HasIndex(e => e.DeviceId, "IX_DeviceMetadatas_DeviceId");
+
                 entity.HasOne(d => d.Device)
                     .WithMany(p => p.DeviceMetadata)
                     .HasForeignKey(d => d.DeviceId)
@@ -76,6 +83,10 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<DevicePart>(entity =>
             {
+                entity.HasIndex(e => e.DeviceId, "IX_DeviceParts_DeviceId");
+
+                entity.HasIndex(e => e.ParentDevicePartId, "IX_DeviceParts_ParentDevicePartId");
+
                 entity.HasOne(d => d.Device)
                     .WithMany(p => p.DeviceParts)
                     .HasForeignKey(d => d.DeviceId)
@@ -110,6 +121,8 @@ namespace Minder.DataAccess.Context
                 entity.HasIndex(e => new { e.EquipmentId, e.DevicePartId }, "IX_EquipmentDevicePart")
                     .IsUnique();
 
+                entity.HasIndex(e => e.DevicePartId, "IX_EquipmentDeviceParts_DevicePartId");
+
                 entity.HasOne(d => d.DevicePart)
                     .WithMany(p => p.EquipmentDeviceParts)
                     .HasForeignKey(d => d.DevicePartId)
@@ -123,11 +136,39 @@ namespace Minder.DataAccess.Context
                     .HasConstraintName("FK_EquipmentDevicePart_Equipment");
             });
 
+            modelBuilder.Entity<EquipmentsSoftwary>(entity =>
+            {
+                entity.HasKey(e => new { e.SoftwareId, e.EquipmentId });
+
+                entity.HasOne(d => d.Equipment)
+                    .WithMany(p => p.EquipmentsSoftwaries)
+                    .HasForeignKey(d => d.EquipmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EquipmentsSoftwaries_Equipments");
+
+                entity.HasOne(d => d.Software)
+                    .WithMany(p => p.EquipmentsSoftwaries)
+                    .HasForeignKey(d => d.SoftwareId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EquipmentsSoftwaries_Software");
+            });
+
             modelBuilder.Entity<Metadata>(entity =>
             {
                 entity.Property(e => e.Name).IsRequired();
 
                 entity.Property(e => e.Value).IsRequired();
+            });
+
+            modelBuilder.Entity<Software>(entity =>
+            {
+                entity.ToTable("Software");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Name).IsRequired();
+
+                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -5,23 +5,22 @@ using System.Collections.Generic;
 
 namespace Minder.DataAccess.Models
 {
-    public partial class Equipment
+    public partial class Software
     {
-        public Equipment()
+        public Software()
         {
-            EquipmentDeviceParts = new HashSet<EquipmentDevicePart>();
             EquipmentsSoftwaries = new HashSet<EquipmentsSoftwary>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ShortName { get; set; }
         public string Description { get; set; }
-        public byte[] Image { get; set; }
+        public string ProductKey { get; set; }
+        public float? Price { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public bool IsUsed { get; set; }
 
-        public virtual ICollection<EquipmentDevicePart> EquipmentDeviceParts { get; set; }
         public virtual ICollection<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
     }
 }
