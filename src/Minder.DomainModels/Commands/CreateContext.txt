@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext 'Data Source=.\MSSQLSERVER;Initial Catalog=minderdb;Trusted_Connection=True' Microsoft.EntityFrameworkCore.SqlServer -f -ContextDir Context -OutputDir Models -Context MinderContext

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Minder.DataAccess.Models
+namespace Minder.DomainModels.Models
 {
     public partial class Metadata
     {

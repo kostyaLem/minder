@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Minder.DataAccess.Models
+namespace Minder.DomainModels.Models
 {
-    public partial class EquipmentDevicePart
+    public partial class EquipmentsSoftwary
     {
+        public int SoftwareId { get; set; }
         public int EquipmentId { get; set; }
-        public int DevicePartId { get; set; }
 
-        public virtual DevicePart DevicePart { get; set; }
         public virtual Equipment Equipment { get; set; }
+        public virtual Software Software { get; set; }
     }
 }

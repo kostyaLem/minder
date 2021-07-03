@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Minder.DataAccess.Models;
+using Minder.DomainModels.Models;
 
 #nullable disable
 
-namespace Minder.DataAccess.Context
+namespace Minder.DomainModels.Context
 {
     public partial class MinderContext : DbContext
     {
@@ -35,7 +35,7 @@ namespace Minder.DataAccess.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=minderdb;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-LEP5KN8;Initial Catalog=minderdb;Trusted_Connection=True");
             }
         }
 
@@ -108,6 +108,8 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<Employee>(entity =>
             {
+                entity.HasIndex(e => e.PositionId, "IX_Employees_PositionId");
+
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
                 entity.Property(e => e.Email).HasMaxLength(50);
@@ -130,6 +132,8 @@ namespace Minder.DataAccess.Context
 
             modelBuilder.Entity<Equipment>(entity =>
             {
+                entity.HasIndex(e => e.UsedByEmpolyeeId, "IX_Equipments_UsedByEmpolyeeId");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).IsRequired();
@@ -168,6 +172,8 @@ namespace Minder.DataAccess.Context
             modelBuilder.Entity<EquipmentsSoftwary>(entity =>
             {
                 entity.HasKey(e => new { e.SoftwareId, e.EquipmentId });
+
+                entity.HasIndex(e => e.EquipmentId, "IX_EquipmentsSoftwaries_EquipmentId");
 
                 entity.HasOne(d => d.Equipment)
                     .WithMany(p => p.EquipmentsSoftwaries)
