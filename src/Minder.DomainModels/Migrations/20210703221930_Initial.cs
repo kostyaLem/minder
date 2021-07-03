@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Minder.DataAccess.Migrations
+namespace Minder.DomainModels.Migrations
 {
     public partial class Initial : Migration
     {

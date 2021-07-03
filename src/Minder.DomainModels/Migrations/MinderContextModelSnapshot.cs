@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Minder.DataAccess.Context;
+using Minder.DomainModels.Context;
 
-namespace Minder.DataAccess.Migrations
+namespace Minder.DomainModels.Migrations
 {
     [DbContext(typeof(MinderContext))]
     partial class MinderContextModelSnapshot : ModelSnapshot
@@ -20,7 +20,7 @@ namespace Minder.DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Device", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Device", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DeviceMetadata", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DeviceMetadata", b =>
                 {
                     b.Property<int>("MetadataId")
                         .HasColumnType("int");
@@ -75,7 +75,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("DeviceMetadatas");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DevicePart", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DevicePart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("DeviceParts");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DeviceType", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DeviceType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("DeviceTypes");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,12 +149,12 @@ namespace Minder.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PositionId");
+                    b.HasIndex(new[] { "PositionId" }, "IX_Employees_PositionId");
 
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EmployeesPosition", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EmployeesPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -170,7 +170,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("EmployeesPositions");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Equipment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -198,12 +198,12 @@ namespace Minder.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsedByEmpolyeeId");
+                    b.HasIndex(new[] { "UsedByEmpolyeeId" }, "IX_Equipments_UsedByEmpolyeeId");
 
                     b.ToTable("Equipments");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EquipmentDevicePart", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EquipmentDevicePart", b =>
                 {
                     b.Property<int>("EquipmentId")
                         .HasColumnType("int");
@@ -222,7 +222,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("EquipmentDeviceParts");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EquipmentsSoftwary", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EquipmentsSoftwary", b =>
                 {
                     b.Property<int>("SoftwareId")
                         .HasColumnType("int");
@@ -232,12 +232,12 @@ namespace Minder.DataAccess.Migrations
 
                     b.HasKey("SoftwareId", "EquipmentId");
 
-                    b.HasIndex("EquipmentId");
+                    b.HasIndex(new[] { "EquipmentId" }, "IX_EquipmentsSoftwaries_EquipmentId");
 
                     b.ToTable("EquipmentsSoftwaries");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Metadata", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Metadata", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +257,7 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("Metadatas");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Software", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Software", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -291,9 +291,9 @@ namespace Minder.DataAccess.Migrations
                     b.ToTable("Software");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Device", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Device", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.DeviceType", "DeviceType")
+                    b.HasOne("Minder.DomainModels.Models.DeviceType", "DeviceType")
                         .WithMany("Devices")
                         .HasForeignKey("DeviceTypeId")
                         .HasConstraintName("FK_Device_DeviceType")
@@ -302,15 +302,15 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("DeviceType");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DeviceMetadata", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DeviceMetadata", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.Device", "Device")
+                    b.HasOne("Minder.DomainModels.Models.Device", "Device")
                         .WithMany("DeviceMetadata")
                         .HasForeignKey("DeviceId")
                         .HasConstraintName("FK_DeviceMetadata_Device")
                         .IsRequired();
 
-                    b.HasOne("Minder.DataAccess.Models.Metadata", "Metadata")
+                    b.HasOne("Minder.DomainModels.Models.Metadata", "Metadata")
                         .WithMany("DeviceMetadata")
                         .HasForeignKey("MetadataId")
                         .HasConstraintName("FK_DeviceMetadata_Metadata")
@@ -321,15 +321,15 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("Metadata");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DevicePart", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DevicePart", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.Device", "Device")
+                    b.HasOne("Minder.DomainModels.Models.Device", "Device")
                         .WithMany("DeviceParts")
                         .HasForeignKey("DeviceId")
                         .HasConstraintName("FK_DevicePart_Device")
                         .IsRequired();
 
-                    b.HasOne("Minder.DataAccess.Models.DevicePart", "ParentDevicePart")
+                    b.HasOne("Minder.DomainModels.Models.DevicePart", "ParentDevicePart")
                         .WithMany("InverseParentDevicePart")
                         .HasForeignKey("ParentDevicePartId")
                         .HasConstraintName("FK_DevicePart_DevicePart1");
@@ -339,9 +339,9 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("ParentDevicePart");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Employee", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.EmployeesPosition", "Position")
+                    b.HasOne("Minder.DomainModels.Models.EmployeesPosition", "Position")
                         .WithMany("Employees")
                         .HasForeignKey("PositionId")
                         .HasConstraintName("FK_Employees_EmployeesPositions")
@@ -350,9 +350,9 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("Position");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Equipment", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.Employee", "UsedByEmpolyee")
+                    b.HasOne("Minder.DomainModels.Models.Employee", "UsedByEmpolyee")
                         .WithMany("Equipment")
                         .HasForeignKey("UsedByEmpolyeeId")
                         .HasConstraintName("FK_Equipments_Employees");
@@ -360,15 +360,15 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("UsedByEmpolyee");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EquipmentDevicePart", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EquipmentDevicePart", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.DevicePart", "DevicePart")
+                    b.HasOne("Minder.DomainModels.Models.DevicePart", "DevicePart")
                         .WithMany("EquipmentDeviceParts")
                         .HasForeignKey("DevicePartId")
                         .HasConstraintName("FK_EquipmentDevicePart_DevicePart")
                         .IsRequired();
 
-                    b.HasOne("Minder.DataAccess.Models.Equipment", "Equipment")
+                    b.HasOne("Minder.DomainModels.Models.Equipment", "Equipment")
                         .WithMany("EquipmentDeviceParts")
                         .HasForeignKey("EquipmentId")
                         .HasConstraintName("FK_EquipmentDevicePart_Equipment")
@@ -379,15 +379,15 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("Equipment");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EquipmentsSoftwary", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EquipmentsSoftwary", b =>
                 {
-                    b.HasOne("Minder.DataAccess.Models.Equipment", "Equipment")
+                    b.HasOne("Minder.DomainModels.Models.Equipment", "Equipment")
                         .WithMany("EquipmentsSoftwaries")
                         .HasForeignKey("EquipmentId")
                         .HasConstraintName("FK_EquipmentsSoftwaries_Equipments")
                         .IsRequired();
 
-                    b.HasOne("Minder.DataAccess.Models.Software", "Software")
+                    b.HasOne("Minder.DomainModels.Models.Software", "Software")
                         .WithMany("EquipmentsSoftwaries")
                         .HasForeignKey("SoftwareId")
                         .HasConstraintName("FK_EquipmentsSoftwaries_Software")
@@ -398,48 +398,48 @@ namespace Minder.DataAccess.Migrations
                     b.Navigation("Software");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Device", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Device", b =>
                 {
                     b.Navigation("DeviceMetadata");
 
                     b.Navigation("DeviceParts");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DevicePart", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DevicePart", b =>
                 {
                     b.Navigation("EquipmentDeviceParts");
 
                     b.Navigation("InverseParentDevicePart");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.DeviceType", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.DeviceType", b =>
                 {
                     b.Navigation("Devices");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Employee", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Employee", b =>
                 {
                     b.Navigation("Equipment");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.EmployeesPosition", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.EmployeesPosition", b =>
                 {
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Equipment", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Equipment", b =>
                 {
                     b.Navigation("EquipmentDeviceParts");
 
                     b.Navigation("EquipmentsSoftwaries");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Metadata", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Metadata", b =>
                 {
                     b.Navigation("DeviceMetadata");
                 });
 
-            modelBuilder.Entity("Minder.DataAccess.Models.Software", b =>
+            modelBuilder.Entity("Minder.DomainModels.Models.Software", b =>
                 {
                     b.Navigation("EquipmentsSoftwaries");
                 });
