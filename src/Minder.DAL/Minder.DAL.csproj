@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Employee\" />
+    <Folder Include="Repositories\Equipment\" />
+    <Folder Include="Repositories\Softrware\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Minder.DomainModels\Minder.DomainModels.csproj" />
+  </ItemGroup>
+
+</Project>
