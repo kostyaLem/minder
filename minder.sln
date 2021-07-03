@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minder.DomainModels", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minder.DAL", "src\Minder.DAL\Minder.DAL.csproj", "{A0223B8D-0573-4A5E-97FD-37D760F65A68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minder", "src\Minder\Minder.csproj", "{D6704975-1F68-4A1C-BE81-4BE7150841BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minder.Core", "src\Minder.Core\Minder.Core.csproj", "{6DCD2AEC-64E6-4BEC-AD7C-56A7542E2176}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A0223B8D-0573-4A5E-97FD-37D760F65A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0223B8D-0573-4A5E-97FD-37D760F65A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0223B8D-0573-4A5E-97FD-37D760F65A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6704975-1F68-4A1C-BE81-4BE7150841BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6704975-1F68-4A1C-BE81-4BE7150841BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6704975-1F68-4A1C-BE81-4BE7150841BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6704975-1F68-4A1C-BE81-4BE7150841BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DCD2AEC-64E6-4BEC-AD7C-56A7542E2176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DCD2AEC-64E6-4BEC-AD7C-56A7542E2176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DCD2AEC-64E6-4BEC-AD7C-56A7542E2176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DCD2AEC-64E6-4BEC-AD7C-56A7542E2176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
