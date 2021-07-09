@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dp="clr-namespace:Minder.Controls.CustomButtons"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prop="clr-namespace:Minder.Properties"
     Width="600"
@@ -19,7 +20,8 @@
         <ResourceDictionary Source="\Controls\CustomButtons\CustomButtonControlResources.xaml" />
     </Window.Resources>
 
-    <Border Background="White" CornerRadius="20,0,0,20">
+    <Border Background="Aquamarine" CornerRadius="20,0,0,0">
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="85" />
@@ -37,7 +39,7 @@
                 ClipToBounds="True"
                 CornerRadius="20,0,0,0">
                 <Border.Effect>
-                    <BlurEffect Radius="5" />
+                    <BlurEffect Radius="6" />
                 </Border.Effect>
 
                 <Border.Background>
@@ -61,61 +63,51 @@
                 </TextBlock>
 
                 <TextBlock
+                    Margin="0,0,200,0"
                     FontSize="14"
                     Foreground="White"
                     Text="Автоматизированная система учёта компьютерного оборудования и программного обеспечения"
                     TextWrapping="Wrap">
                     <TextBlock.Effect>
                         <DropShadowEffect
-                            BlurRadius="2"
-                            ShadowDepth="3"
+                            BlurRadius="5"
+                            ShadowDepth="2"
                             Color="Black" />
                     </TextBlock.Effect>
                 </TextBlock>
 
             </StackPanel>
 
-            <Grid Grid.Row="1" Grid.Column="0">
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    Grid.Row="0"
-                    Margin="0,25,0,0"
-                    HorizontalAlignment="Center"
+                    Margin="20,25,0,0"
+                    HorizontalAlignment="Left"
                     FontFamily="Candara Light"
-                    FontSize="16"
+                    FontSize="18"
                     Text="{x:Static prop:Resources.SelectUserTypeTitle}" />
 
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,25,0,0"
-                    HorizontalAlignment="Center"
-                    FontFamily="Candara Light"
-                    FontSize="16" />
-
-                <!--<controls:WindowControlButtons
-                    Grid.Row="0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    CloseCommand="{Binding ExitCommand}"
-                    ShowExpanderButton="False"
-                    SkipCommand="{Binding SkipCommand}" />-->
-
-                <StackPanel Grid.Row="1">
+                <StackPanel Grid.Row="1" Grid.Column="0">
 
                     <!--  User Type Buttons  -->
-                    <WrapPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Center"
+                    <StackPanel
+                        Margin="20,10,0,0"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Top">
 
                         <RadioButton
                             Grid.Row="0"
                             Grid.Column="0"
+                            Width="180"
+                            Height="40"
+                            Margin="0,0,0,15"
                             dp:ButtonProperties.Image="{StaticResource AdminPlateImage}"
                             Content="{x:Static prop:Resources.AdminTitle}"
                             IsChecked="True" />
@@ -123,27 +115,55 @@
                         <RadioButton
                             Grid.Row="0"
                             Grid.Column="1"
-                            dp:ButtonProperties.Image="{StaticResource ScientistImage}"
+                            Width="180"
+                            Height="40"
+                            dp:ButtonProperties.Image="{StaticResource ResearcherImage}"
                             Content="{x:Static prop:Resources.ResearcherTitle}" />
 
-                    </WrapPanel>
+                    </StackPanel>
 
                 </StackPanel>
 
-                <!--  Auth Part  -->
-                <!--
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                Grid.Column="1"
+                Background="White">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,25,0,0"
+                    HorizontalAlignment="Center"
+                    FontFamily="Century Gothic"
+                    FontSize="24"
+                    Text="{x:Static prop:Resources.AuthTitle}" />
+
                 <StackPanel
-                    Grid.Row="2"
-                    Width="300"
-                    VerticalAlignment="Center">
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,0,10,0">
 
-                    <TextBlock
-                        Margin="0,0,0,10"
-                        FontFamily="Century Gothic"
-                        FontSize="24"
-                        Text="{x:Static prop:Resources.AuthTitle}" />
+                    <!--  User Type Buttons  -->
+                    <StackPanel
+                        Margin="50,10,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
 
-                </StackPanel>-->
+                        <hc:TextBox
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Stretch"
+                            BorderThickness="5,2,1,2"
+                            ToolTip="www.com" />
+                        <hc:TextBox HorizontalAlignment="Stretch" BorderThickness="5,2,1,2" />
+
+                    </StackPanel>
+
+                </StackPanel>
 
             </Grid>
 

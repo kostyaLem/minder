@@ -82,17 +82,12 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="5">
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
+                            <WrapPanel>
 
                                 <Image
                                     Grid.Row="0"
-                                    Width="47"
-                                    Height="47"
-                                    Source="{Binding Path=(custombuttons:ButtonProperties.Image), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type RadioButton}}}" />
+                                    Source="{Binding Path=(custombuttons:ButtonProperties.Image), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type RadioButton}}}"
+                                    Stretch="Uniform" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Margin="0,0,0,1"
@@ -104,7 +99,7 @@
                                     TextAlignment="Center"
                                     TextWrapping="Wrap" />
 
-                            </Grid>
+                            </WrapPanel>
                         </Border>
 
                         <Image
