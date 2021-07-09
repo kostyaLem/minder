@@ -7,11 +7,53 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\admin.png" />
+    <None Remove="Resources\Images\auth_back.jpg" />
+    <None Remove="Resources\Images\book.png" />
+    <None Remove="Resources\Images\done.png" />
+    <None Remove="Resources\Images\login.png" />
+    <None Remove="Resources\Images\new_user.png" />
+    <None Remove="Resources\Images\password.png" />
+    <None Remove="Resources\Images\researcher.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Minder.Core\Minder.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpressMvvm" Version="20.2.3" />
+    <PackageReference Include="HandyControl" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\admin.png" />
+    <Resource Include="Resources\Images\auth_back.jpg" />
+    <Resource Include="Resources\Images\book.png" />
+    <Resource Include="Resources\Images\done.png" />
+    <Resource Include="Resources\Images\login.png" />
+    <Resource Include="Resources\Images\new_user.png" />
+    <Resource Include="Resources\Images\password.png" />
+    <Resource Include="Resources\Images\researcher.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

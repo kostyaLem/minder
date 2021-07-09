@@ -1,7 +1,4 @@
 ﻿using Minder.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Minder.ViewModels
 {
@@ -19,7 +16,7 @@ namespace Minder.ViewModels
 
         private void OnCurrentViewModelChanged()
         {
-            OnPropertyChanged(nameof(CurrentViewModel));
+            RaisePropertiesChanged(nameof(CurrentViewModel));
         }
     }
 }

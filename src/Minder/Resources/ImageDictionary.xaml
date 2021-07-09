@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Key="AdminPlateImage" UriSource="Images\admin.png" />
+    <BitmapImage x:Key="AuthBackImage" UriSource="Images\auth_back.jpg" />
+    <BitmapImage x:Key="ScientistImage" UriSource="Images\book.png" />
+    <BitmapImage x:Key="DoneImage" UriSource="Images\done.png" />
+    <BitmapImage x:Key="NewUserImage" UriSource="Images\new_user.png" />
+    <BitmapImage x:Key="ResearcherImage" UriSource="Images\researcher.png" />
+
+    <BitmapImage x:Key="LoginImage" UriSource="Images\login.png" />
+    <BitmapImage x:Key="PasswordImage" UriSource="Images\password.png" />
+</ResourceDictionary>

@@ -1,5 +1,7 @@
 ﻿using Minder.Stores;
 using Minder.ViewModels;
+using Minder.ViewModels.Auth;
+using Minder.Views;
 using System.Windows;
 
 namespace Minder
@@ -14,12 +16,19 @@ namespace Minder
             var navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new EquipmentViewModel(navigationStore);
 
-            MainWindow = new MainWindow
+            //MainWindow = new MainWindow
+            //{
+            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            //    DataContext = new MainViewModel(navigationStore)
+            //};
+            //MainWindow.Show();
+
+            var authView = new AuthView
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                DataContext = new MainViewModel(navigationStore)
+                DataContext = new AuthViewModel()
             };
-            MainWindow.Show();
+            authView.Show();
 
             base.OnStartup(e);
         }
