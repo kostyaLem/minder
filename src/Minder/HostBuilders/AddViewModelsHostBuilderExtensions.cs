@@ -11,12 +11,12 @@ namespace Minder.HostBuilders
         {
             hostBuilder.ConfigureServices(services =>
             {
-                services.AddSingleton<AuthViewModel>();
-                services.AddSingleton<MainViewModel>();
+                services.AddTransient<AuthViewModel>();
+                services.AddTransient<MainViewModel>();
 
-                services.AddSingleton<EquipmentViewModel>();
-                services.AddSingleton<SoftwareViewModel>();
-                services.AddSingleton<StaffViewModel>();
+                services.AddTransient<EquipmentViewModel>();
+                services.AddTransient<SoftwareViewModel>();
+                services.AddTransient<StaffViewModel>();
             });
 
             return hostBuilder;

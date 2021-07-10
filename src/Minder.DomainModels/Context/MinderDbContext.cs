@@ -5,12 +5,9 @@ using Minder.DomainModels.Models;
 
 namespace Minder.DomainModels.Context
 {
-    public partial class MinderDbContext : DbContext
+    public class MinderDbContext : DbContext
     {
-        public MinderDbContext(DbContextOptions<MinderDbContext> options)
-            : base(options)
-        {
-        }
+        public MinderDbContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<DeviceMetadata> DeviceMetadatas { get; set; }
@@ -23,6 +20,7 @@ namespace Minder.DomainModels.Context
         public virtual DbSet<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
         public virtual DbSet<Metadata> Metadatas { get; set; }
         public virtual DbSet<Software> Softwares { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -189,11 +187,7 @@ namespace Minder.DomainModels.Context
                 entity.Property(e => e.Name).IsRequired();
 
                 entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
-            });
-
-            OnModelCreatingPartial(modelBuilder);
+            });            
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

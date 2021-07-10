@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Minder.Core.Services.Auth;
+using Minder.Stores;
 
 namespace Minder.HostBuilders
 {
@@ -13,7 +14,8 @@ namespace Minder.HostBuilders
             {
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
-                services.AddSingleton<IAuthService, AuthService>();
+                services.AddTransient<INavigator, Navigator>();
+                services.AddTransient<IAuthService, AuthService>();
             });
 
             return host;
