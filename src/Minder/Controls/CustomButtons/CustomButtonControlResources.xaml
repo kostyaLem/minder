@@ -3,34 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:custombuttons="clr-namespace:Minder.Controls.CustomButtons">
 
-    <Style x:Key="FocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle
-                        Margin="2"
-                        SnapsToDevicePixels="true"
-                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                        StrokeDashArray="1 2"
-                        StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="OptionMarkFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle
-                        Margin="0,0,0,0"
-                        SnapsToDevicePixels="true"
-                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                        StrokeDashArray="1 2"
-                        StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070" />
     <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121" />
@@ -45,19 +17,12 @@
     <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070" />
     <Style TargetType="{x:Type RadioButton}">
         <Setter Property="Margin" Value="5,0" />
-        <Setter Property="Width" Value="107" />
-        <Setter Property="Height" Value="100" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="BorderThickness" Value="3" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <ControlTemplate.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="TextWrapping" Value="Wrap" />
-                        </Style>
-                    </ControlTemplate.Resources>
 
                     <Grid
                         x:Name="templateRoot"
@@ -168,131 +133,6 @@
                         </MultiTrigger>
 
                     </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="FocusVisual1">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle
-                        Margin="2"
-                        SnapsToDevicePixels="true"
-                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                        StrokeDashArray="1 2"
-                        StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
-    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
-    <Style x:Key="CustomButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}" />
-        <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="1" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="3"
-                        CornerRadius="2"
-                        SnapsToDevicePixels="true">
-
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="False">
-                                        <Setter Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
-                                    </Trigger>
-
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush">
-                                            <Setter.Value>
-                                                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0.5" EndPoint="1,0.5">
-                                                    <GradientStop Offset="0" Color="#FF1240A4" />
-                                                    <GradientStop Offset="1" Color="#FFFF1818" />
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <Border.Triggers>
-
-                            <EventTrigger RoutedEvent="MouseEnter">
-
-                                <BeginStoryboard>
-
-                                    <Storyboard RepeatBehavior="Forever">
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.StartPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:0.4" Value="0.5,0" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.EndPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:0.4" Value="0.5,1" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.StartPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:0.6" Value="1,0.5" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.EndPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:0.6" Value="0,0.5" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.StartPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,1" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.EndPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.StartPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:1.5" Value="0,0.5" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                        <PointAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(LinearGradientBrush.EndPoint)">
-                                            <EasingPointKeyFrame KeyTime="0:0:1.5" Value="1,0.5" />
-                                        </PointAnimationUsingKeyFrames>
-
-                                    </Storyboard>
-                                </BeginStoryboard>
-
-                            </EventTrigger>
-
-                        </Border.Triggers>
-
-                        <ContentPresenter
-                            x:Name="contentPresenter"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Focusable="False"
-                            RecognizesAccessKey="True"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

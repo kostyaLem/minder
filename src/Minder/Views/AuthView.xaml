@@ -13,7 +13,6 @@
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    WindowState="{Binding WindowState}"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
@@ -63,10 +62,10 @@
                 </TextBlock>
 
                 <TextBlock
-                    Margin="0,0,200,0"
+                    Margin="15,0,120,0"
                     FontSize="14"
                     Foreground="White"
-                    Text="Автоматизированная система учёта компьютерного оборудования и программного обеспечения"
+                    Text="«Автоматизированная система учёта компьютерного оборудования и программного обеспечения»"
                     TextWrapping="Wrap">
                     <TextBlock.Effect>
                         <DropShadowEffect
