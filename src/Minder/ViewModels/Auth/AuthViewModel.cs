@@ -9,6 +9,8 @@ namespace Minder.ViewModels.Auth
     {
         private readonly IAuthService _authService;
 
+        #region Properties
+
         public string UserName
         {
             get { return GetValue<string>(); }
@@ -23,12 +25,9 @@ namespace Minder.ViewModels.Auth
 
         public bool CanLogin { get; private set; }
 
+        #endregion
+
         public ICommand LoginCommand { get; }
-
-        public AuthViewModel()
-        {
-
-        }
 
         public AuthViewModel(IAuthService authService)
         {

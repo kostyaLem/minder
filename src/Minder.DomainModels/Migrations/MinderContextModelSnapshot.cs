@@ -8,7 +8,7 @@ using Minder.DomainModels.Context;
 
 namespace Minder.DomainModels.Migrations
 {
-    [DbContext(typeof(MinderContext))]
+    [DbContext(typeof(MinderDbContext))]
     partial class MinderContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -1,16 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using System;
 
 namespace Minder.DomainModels.Context
 {
-    public class MinderDbContextFactory : IDesignTimeDbContextFactory<MinderContext>
+    public class MinderDbContextFactory
     {
-        public MinderContext CreateDbContext(string[] args = null)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<MinderContext>();
-            optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=minderdb;Trusted_Connection=True");
+        private readonly Action<DbContextOptionsBuilder> _configureDbContext;
 
-            return new MinderContext(optionsBuilder.Options);
+        public MinderDbContextFactory(Action<DbContextOptionsBuilder> configureDbContext)
+        {
+            _configureDbContext = configureDbContext;
+        }
+
+        public MinderDbContext CreateDbContext()
+        {
+            DbContextOptionsBuilder<MinderDbContext> options = new DbContextOptionsBuilder<MinderDbContext>();
+
+            _configureDbContext(options);
+
+            return new MinderDbContext(options.Options);
         }
     }
 }

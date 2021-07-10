@@ -29,6 +29,8 @@
   <ItemGroup>
     <PackageReference Include="DevExpressMvvm" Version="20.2.3" />
     <PackageReference Include="HandyControl" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

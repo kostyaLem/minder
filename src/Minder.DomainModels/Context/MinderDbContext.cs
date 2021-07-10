@@ -5,9 +5,9 @@ using Minder.DomainModels.Models;
 
 namespace Minder.DomainModels.Context
 {
-    public partial class MinderContext : DbContext
+    public partial class MinderDbContext : DbContext
     {
-        public MinderContext(DbContextOptions<MinderContext> options)
+        public MinderDbContext(DbContextOptions<MinderDbContext> options)
             : base(options)
         {
         }

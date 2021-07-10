@@ -9,7 +9,7 @@ using Minder.DomainModels.Context;
 
 namespace Minder.DomainModels.Migrations
 {
-    [DbContext(typeof(MinderContext))]
+    [DbContext(typeof(MinderDbContext))]
     [Migration("20210710160303_Init")]
     partial class Init
     {
