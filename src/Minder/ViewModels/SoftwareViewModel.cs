@@ -8,6 +8,6 @@ namespace Minder.ViewModels
     {
         public override ImageSource Icon => throw new NotImplementedException();
 
-        public override string Title => throw new NotImplementedException();
+        public override string Title => "Text";
     }
 }

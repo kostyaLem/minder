@@ -2,7 +2,7 @@
 
 namespace Minder.ViewModels.Base
 {
-    public abstract class TitleViewModel : ViewModelBase
+    public abstract class TitleViewModel : BaseViewModel
     {
         // Иконка модели
         public abstract ImageSource Icon { get; }

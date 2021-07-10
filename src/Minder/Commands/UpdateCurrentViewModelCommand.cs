@@ -6,13 +6,13 @@ namespace Minder.Commands
 {
     public class UpdateCurrentViewModelCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
-
         private readonly INavigator _navigator;
+
+        public event EventHandler CanExecuteChanged;
 
         public UpdateCurrentViewModelCommand(INavigator navigator)
         {
-            _navigator = navigator ?? throw new ArgumentNullException(nameof(navigator));
+            _navigator = navigator;
         }
 
         public bool CanExecute(object parameter)
@@ -24,7 +24,7 @@ namespace Minder.Commands
         {
             var viewType = (ViewType)parameter;
 
-            ViewModelLocator[viewType];
+            _navigator.CurrentViewModel = App.ViewModelLocator[viewType];                  
         }
     }
 }

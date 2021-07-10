@@ -1,15 +1,53 @@
-﻿<hc:BlurWindow
+﻿<Window
     x:Class="Minder.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:stores="clr-namespace:Minder.Stores"
+    xmlns:viewmodels="clr-namespace:Minder.ViewModels"
+    xmlns:views="clr-namespace:Minder.Views"
     Title="MainWindow"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
     mc:Ignorable="d">
-    
-    <hc:PasswordBox Password=""/>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:EquipmentViewModel}">
+            <views:EquipmentView />
+        </DataTemplate>
 
-</hc:BlurWindow>
+        <DataTemplate DataType="{x:Type viewmodels:SoftwareViewModel}">
+            <views:SoftwareView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:StaffViewModel}">
+            <views:StaffView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <UniformGrid VerticalAlignment="Top" Columns="2">
+            <Button
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static stores:ViewType.EquipmentView}"
+                Content="Equipment" />
+            <Button
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static stores:ViewType.SoftwareView}"
+                Content="Software" />
+        </UniformGrid>
+
+        <Button
+            Grid.Row="1"
+            Width="300"
+            Content="{Binding CurrentViewModel, UpdateSourceTrigger=PropertyChanged}"
+            Foreground="Red" />
+
+    </Grid>
+</Window>

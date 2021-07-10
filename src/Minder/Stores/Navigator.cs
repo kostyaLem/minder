@@ -1,34 +1,24 @@
-﻿using Minder.ViewModels;
+﻿using DevExpress.Mvvm;
 using Minder.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Minder.Stores
 {
-    public enum ViewType
+    /// <summary>
+    /// Управление текущим окном
+    /// </summary>
+    public class Navigator : BindableBase, INavigator
     {
-        EquipmentView,
-        SoftwareView,
-        StaffView
-    }
+        public BaseViewModel CurrentViewModel
+        {
+            get => GetValue<BaseViewModel>();
+            set
+            {
+                SetValue(value);
+                StateChanged?.Invoke();
+            }
+        }
 
-    public class Navigator : INavigator
-    {
-
-
-        public ViewModelBase CurrentViewModel => throw new NotImplementedException();
-
-        public ICommand UpdateCurrentViewModelCommand => throw new NotImplementedException();
-    }
-
-    public interface INavigator
-    {
-        ViewModelBase CurrentViewModel { get; }
-
-        ICommand UpdateCurrentViewModelCommand { get; }
+        public event Action StateChanged;
     }
 }

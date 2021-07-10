@@ -1,8 +1,6 @@
 ﻿using Minder.Stores;
 using Minder.ViewModels;
-using Minder.ViewModels.Auth;
 using Minder.ViewModels.Base;
-using Minder.Views;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -26,10 +24,12 @@ namespace Minder
 
             ViewModelLocator = new ViewModelLocator(viewModels);
 
-            var authView = new AuthView
+            var navigator = new Navigator();
+
+            var authView = new MainWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                DataContext = new AuthViewModel()
+                DataContext = new MainViewModel(navigator)
             };
             authView.Show();
 

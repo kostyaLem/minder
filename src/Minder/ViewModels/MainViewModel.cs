@@ -1,23 +1,31 @@
-﻿using Minder.Stores;
+﻿using DevExpress.Mvvm;
+using Minder.Commands;
+using Minder.Stores;
 using Minder.ViewModels.Base;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Minder.ViewModels
 {
-    class MainViewModel : ViewModelBase
+    public class MainViewModel : BindableBase, INotifyPropertyChanged
     {
-        private readonly Navigator _navigationStore;
+        private readonly INavigator _navigator;
 
-        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public BaseViewModel CurrentViewModel => _navigator.CurrentViewModel; 
 
-        public MainViewModel(Navigator navigationStore)
+        public ICommand UpdateCurrentViewModelCommand { get; }        
+
+        public MainViewModel(INavigator navigator)
         {
-            _navigationStore = navigationStore;
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _navigator = navigator ?? throw new System.ArgumentNullException(nameof(navigator));
+            _navigator.StateChanged += OnCurrentViewModelChanged;
+
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(_navigator);            
         }
 
         private void OnCurrentViewModelChanged()
         {
-            RaisePropertiesChanged(nameof(CurrentViewModel));
+            RaisePropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

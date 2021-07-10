@@ -1,10 +1,11 @@
 ﻿using Minder.Core.Services.Auth;
+using Minder.ViewModels.Base;
 using System;
 using System.Windows.Input;
 
 namespace Minder.ViewModels.Auth
 {
-    public class AuthViewModel : ViewModelBase
+    public class AuthViewModel : BaseViewModel
     {
         private readonly IAuthService _authService;
 
