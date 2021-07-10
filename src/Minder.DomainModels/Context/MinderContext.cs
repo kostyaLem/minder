@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Minder.DomainModels.Models;
 
 #nullable disable
@@ -9,10 +7,6 @@ namespace Minder.DomainModels.Context
 {
     public partial class MinderContext : DbContext
     {
-        public MinderContext()
-        {
-        }
-
         public MinderContext(DbContextOptions<MinderContext> options)
             : base(options)
         {
@@ -29,15 +23,6 @@ namespace Minder.DomainModels.Context
         public virtual DbSet<EquipmentsSoftwary> EquipmentsSoftwaries { get; set; }
         public virtual DbSet<Metadata> Metadatas { get; set; }
         public virtual DbSet<Software> Softwares { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-LEP5KN8;Initial Catalog=minderdb;Trusted_Connection=True");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

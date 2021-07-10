@@ -10,8 +10,8 @@ using Minder.DomainModels.Context;
 namespace Minder.DomainModels.Migrations
 {
     [DbContext(typeof(MinderContext))]
-    [Migration("20210703221930_Initial")]
-    partial class Initial
+    [Migration("20210710160303_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,9 +163,9 @@ namespace Minder.DomainModels.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Name")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

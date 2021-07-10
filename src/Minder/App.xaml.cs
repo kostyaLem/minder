@@ -1,7 +1,9 @@
 ﻿using Minder.Stores;
 using Minder.ViewModels;
 using Minder.ViewModels.Auth;
+using Minder.ViewModels.Base;
 using Minder.Views;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Minder
@@ -10,18 +12,19 @@ namespace Minder
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {
+    {       
+        public static ViewModelLocator ViewModelLocator { get; private set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            var navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new EquipmentViewModel(navigationStore);
+            var viewModels = new Dictionary<ViewType, TitleViewModel>
+            {
+                [ViewType.EquipmentView] = new EquipmentViewModel(),
+                [ViewType.SoftwareView] = new SoftwareViewModel(),
+                [ViewType.StaffView] = new StaffViewModel()
+            };
 
-            //MainWindow = new MainWindow
-            //{
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            //    DataContext = new MainViewModel(navigationStore)
-            //};
-            //MainWindow.Show();
+            ViewModelLocator = new ViewModelLocator(viewModels);
 
             var authView = new AuthView
             {

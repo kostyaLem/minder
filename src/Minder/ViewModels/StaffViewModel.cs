@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace Minder.ViewModels
 {
-    public class EquipmentViewModel : TitleViewModel
+    public class StaffViewModel : TitleViewModel
     {
         public override ImageSource Icon => throw new NotImplementedException();
 

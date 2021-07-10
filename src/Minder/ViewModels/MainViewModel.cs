@@ -1,14 +1,15 @@
 ﻿using Minder.Stores;
+using Minder.ViewModels.Base;
 
 namespace Minder.ViewModels
 {
     class MainViewModel : ViewModelBase
     {
-        private readonly NavigationStore _navigationStore;
+        private readonly Navigator _navigationStore;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(NavigationStore navigationStore)
+        public MainViewModel(Navigator navigationStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;

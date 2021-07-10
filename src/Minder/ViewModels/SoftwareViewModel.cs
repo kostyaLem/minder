@@ -1,7 +1,5 @@
-﻿using Minder.Commands;
-using Minder.Stores;
+﻿using Minder.ViewModels.Base;
 using System;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Minder.ViewModels
@@ -10,14 +8,6 @@ namespace Minder.ViewModels
     {
         public override ImageSource Icon => throw new NotImplementedException();
 
-        public override string Title => "Программное обеспечение";
-
-        public ICommand NavigationEquipmentCommand { get; }
-
-        public SoftwareViewModel(NavigationStore navigationStore)
-        {
-            NavigationEquipmentCommand = new NavigateCommand<EquipmentViewModel>(navigationStore, () => new EquipmentViewModel(navigationStore));
-        }
-
+        public override string Title => throw new NotImplementedException();
     }
 }

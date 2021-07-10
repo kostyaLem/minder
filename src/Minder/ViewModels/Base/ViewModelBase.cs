@@ -1,9 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Media;
 
-namespace Minder.ViewModels
+namespace Minder.ViewModels.Base
 {
     /// <summary>
     /// Базовая ViewModel для всех вью моделей
