@@ -1,4 +1,7 @@
-﻿namespace Minder.Core.Services.Auth
+﻿using Minder.DomainModels.Models;
+using System.Threading.Tasks;
+
+namespace Minder.Core.Services.Auth
 {
     public interface IAuthService
     {
@@ -9,6 +12,6 @@
         /// <param name="password"> Пароль </param>
         /// <param name="accountType"> Тип аккаунта </param>
         /// <returns> Найденыый аккаунт </returns>
-        void TryLoginAsync(string login, string password, AccountType accountType);
+        Task<Account> TryLoginAsync(string login, string password, AccountType accountType);
     }
 }

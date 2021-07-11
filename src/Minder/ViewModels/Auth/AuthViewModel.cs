@@ -1,6 +1,8 @@
-﻿using Minder.Core.Services.Auth;
+﻿using DevExpress.Mvvm;
+using Minder.Core.Services.Auth;
 using Minder.ViewModels.Base;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Minder.ViewModels.Auth
@@ -14,16 +16,20 @@ namespace Minder.ViewModels.Auth
         public string UserName
         {
             get { return GetValue<string>(); }
-            set { SetValue(value, NotifyInputChanged); }
+            set { SetValue(value); }
         }
 
         public string Password
         {
             get { return GetValue<string>(); }
-            set { SetValue(value, NotifyInputChanged); }
+            set { SetValue(value); }
         }
 
-        public bool CanLogin { get; private set; }
+        public AccountType AccountType
+        {
+            get { return GetValue<AccountType>(); }
+            set { SetValue(value); }
+        }
 
         #endregion
 
@@ -32,13 +38,13 @@ namespace Minder.ViewModels.Auth
         public AuthViewModel(IAuthService authService)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+
+            LoginCommand = new AsyncCommand(Login);
         }
 
-        private void NotifyInputChanged()
+        private async Task Login()
         {
-            CanLogin = !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password);
-
-            RaisePropertiesChanged(nameof(CanLogin));
+            await _authService.TryLoginAsync(UserName, Password, AccountType.Admin);
         }
     }
 }
