@@ -172,11 +172,13 @@
                                 BorderThickness="5,2,1,2"
                                 ShowClearButton="True"
                                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
-                            <hc:TextBox
+                            <hc:PasswordBox
                                 HorizontalAlignment="Stretch"
                                 BorderThickness="5,2,1,2"
+                                IsSafeEnabled="False"
                                 ShowClearButton="True"
-                                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                                ShowEyeButton="True"
+                                UnsafePassword="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
 
                             <Button
                                 Width="100"

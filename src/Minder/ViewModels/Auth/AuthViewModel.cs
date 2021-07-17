@@ -1,8 +1,11 @@
 ﻿using DevExpress.Mvvm;
+using HandyControl.Controls;
+using HandyControl.Data;
 using Minder.Core.Services.Auth;
 using Minder.ViewModels.Base;
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Minder.ViewModels.Auth
@@ -39,12 +42,19 @@ namespace Minder.ViewModels.Auth
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
 
-            LoginCommand = new AsyncCommand(Login);
+            LoginCommand = new AsyncCommand(LoginAsync);
         }
 
-        private async Task Login()
-        {
-            await _authService.TryLoginAsync(UserName, Password, AccountType.Admin);
+        private async Task LoginAsync()
+        {           
+            try
+            {
+                await _authService.TryLoginAsync(UserName, Password, AccountType.Admin);
+            }
+            catch (Exception)
+            {
+                HandyControl.Controls.MessageBox.Show("Message box text", "Caption", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+            }
         }
     }
 }
