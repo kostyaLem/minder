@@ -14,7 +14,7 @@ namespace Minder.ViewModels
         public BaseViewModel CurrentViewModel => _navigator.CurrentViewModel; 
 
         public ICommand UpdateCurrentViewModelCommand { get; }        
-        qwe
+        qwe a asd asd 
         public MainViewModel(INavigator navigator)
         {
             _navigator = navigator ?? throw new System.ArgumentNullException(nameof(navigator));
