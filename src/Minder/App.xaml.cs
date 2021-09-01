@@ -3,22 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Minder.DomainModels.Context;
 using Minder.HostBuilders;
-using Minder.Stores;
-using Minder.ViewModels;
-using Minder.ViewModels.Base;
-using Minder.Views;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace Minder
 {
     public partial class App : Application
     {
-        private readonly IHost _host;
+        private static readonly IHost _host;
 
-        public static ViewModelLocator ViewModelLocator { get; private set; }
-
-        public App()
+        static App()
         {
             _host = CreateHostBuilder().Build();
         }
@@ -40,17 +33,14 @@ namespace Minder
             using var context = contextFactory.CreateDbContext();
             context.Database.Migrate();
 
-            var authView = _host.Services.GetRequiredService<AuthView>();
-            authView.Show();
-
-            var viewModels = new Dictionary<ViewType, TitleViewModel>
-            {
-                [ViewType.EquipmentView] = new EquipmentViewModel(),
-                [ViewType.SoftwareView] = new SoftwareViewModel(),
-                [ViewType.StaffView] = new StaffViewModel()
-            };
+            var authView = _host.Services.GetRequiredService<MainWindow>();
+            authView.ShowDialog();
 
             base.OnStartup(e);
+
+            _host.WaitForShutdown();
         }
+
+        public static T Resolve<T>() => _host.Services.GetRequiredService<T>();
     }
 }

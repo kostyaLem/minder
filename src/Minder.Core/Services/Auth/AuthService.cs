@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
+using Minder.Core.Exceptions;
 using Minder.DomainModels.Context;
 using Minder.DomainModels.Models;
 using System;
@@ -22,12 +23,12 @@ namespace Minder.Core.Services.Auth
         {
             ValidateInput(login, password);
 
-            var account = await _context.Accounts.FirstOrDefaultAsync(a => string.Equals(a.Login, login));
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Login == login);
 
             var result = _passwordHasher.VerifyHashedPassword(account.PasswordHash, password);
 
             if (result == PasswordVerificationResult.Failed)            
-                return null;
+                throw new NotAuthorizedException();
 
             return account;
         }
