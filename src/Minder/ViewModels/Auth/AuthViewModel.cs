@@ -1,8 +1,5 @@
 ﻿using DevExpress.Mvvm;
-using HandyControl.Controls;
-using HandyControl.Data;
 using Minder.Core.Services.Auth;
-using Minder.ViewModels.Base;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,7 +7,7 @@ using System.Windows.Input;
 
 namespace Minder.ViewModels.Auth
 {
-    public class AuthViewModel : BaseViewModel
+    public class AuthViewModel : ViewModelBase
     {
         private readonly IAuthService _authService;
 

@@ -9,6 +9,6 @@ namespace Minder.ViewModels
     {
         public override ImageSource Icon => new BitmapImage(new Uri("/Resources/Images/admin.png", UriKind.Relative));
 
-        public override string Title => "Staff";
+        public override string Title => "Программное обеспечение";
     }
 }

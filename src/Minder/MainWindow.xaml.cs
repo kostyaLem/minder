@@ -1,13 +1,12 @@
-﻿using System.Windows;
+﻿using HandyControl.Controls;
 
 namespace Minder
 {
     public partial class MainWindow : Window
     {
-        public MainWindow(object context)
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = context;
         }
     }
 }

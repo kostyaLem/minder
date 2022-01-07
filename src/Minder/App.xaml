@@ -2,9 +2,8 @@
     x:Class="Minder.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Minder"
-    xmlns:viewmodels="clr-namespace:Minder.ViewModels"
-    xmlns:views="clr-namespace:Minder.Views">
+    xmlns:hc="https://handyorg.github.io/handycontrol">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,6 +11,8 @@
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
 
                 <ResourceDictionary Source="\Resources\ImageDictionary.xaml" />
+
+                <hc:Theme Skin="Dark" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

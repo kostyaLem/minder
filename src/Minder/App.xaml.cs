@@ -1,46 +1,55 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Minder.Core.Services.Auth;
 using Minder.DomainModels.Context;
-using Minder.HostBuilders;
+using Minder.ViewModels;
+using Minder.ViewModels.Auth;
+using Minder.ViewModels.Base;
+using Minder.Views;
 using System.Windows;
 
 namespace Minder
 {
     public partial class App : Application
     {
-        private static readonly IHost _host;
+        public static ServiceProvider ServiceProvider;
 
-        static App()
+        public App()
         {
-            _host = CreateHostBuilder().Build();
+            ConfigureServices();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        private void ConfigureServices()
         {
-            return Host.CreateDefaultBuilder(args)
-                       .AddDbContext()
-                       .AddServices()
-                       .AddViewModels()
-                       .AddViews();
+            var services = new ServiceCollection();
+
+            string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=minderdb;Trusted_Connection=True";
+            services.AddDbContextFactory<MinderDbContext>(x =>
+            {
+                x.UseSqlServer(connectionString);
+            });
+
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<IAuthService, AuthService>();
+
+            services.AddSingleton<AuthViewModel>();
+            services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<TitleViewModel, EquipmentViewModel>();
+            services.AddSingleton<TitleViewModel, SoftwareViewModel>();
+            services.AddSingleton<TitleViewModel, StaffViewModel>();
+
+            services.AddSingleton<MainWindow>();
+
+            ServiceProvider = services.BuildServiceProvider();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _host.Start();
-
-            MinderDbContextFactory contextFactory = _host.Services.GetRequiredService<MinderDbContextFactory>();
-            using var context = contextFactory.CreateDbContext();
-            context.Database.Migrate();
-
-            var authView = _host.Services.GetRequiredService<MainWindow>();
-            authView.ShowDialog();
-
-            base.OnStartup(e);
-
-            _host.WaitForShutdown();
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = ServiceProvider.GetRequiredService<MainViewModel>();
+            mainWindow.Show();
         }
-
-        public static T Resolve<T>() => _host.Services.GetRequiredService<T>();
     }
 }
