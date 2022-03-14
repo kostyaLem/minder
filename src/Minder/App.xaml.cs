@@ -25,7 +25,7 @@ namespace Minder
             var services = new ServiceCollection();
 
             string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=minderdb;Trusted_Connection=True";
-            services.AddDbContextFactory<MinderDbContext>(x =>
+            services.AddDbContext<MinderDbContext>(x =>
             {
                 x.UseSqlServer(connectionString);
             });
@@ -47,9 +47,17 @@ namespace Minder
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            mainWindow.DataContext = ServiceProvider.GetRequiredService<MainViewModel>();
-            mainWindow.Show();
+            new AuthView().Show();
+
+            //var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            //mainWindow.DataContext = ServiceProvider.GetRequiredService<MainViewModel>();
+            //mainWindow.Show();
         }
+    }
+
+    public static class ViewModelLocator
+    {
+        public static AuthViewModel AuthViewModel => 
+            App.ServiceProvider.GetRequiredService<AuthViewModel>();
     }
 }

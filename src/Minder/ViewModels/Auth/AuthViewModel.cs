@@ -1,6 +1,10 @@
 ﻿using DevExpress.Mvvm;
 using Minder.Core.Services.Auth;
+using Minder.Helpers.Models;
+using Minder.Helpers.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -25,11 +29,14 @@ namespace Minder.ViewModels.Auth
             set { SetValue(value); }
         }
 
-        public AccountType AccountType
+        public DescriptionItemPart SelectedAccountType
         {
-            get { return GetValue<AccountType>(); }
+            get { return GetValue<DescriptionItemPart>(); }
             set { SetValue(value); }
         }
+
+        public IEnumerable<DescriptionItemPart> AccountTypes =>
+            EnumProvider.GetSupportedAccountTypes();
 
         #endregion
 
@@ -43,14 +50,14 @@ namespace Minder.ViewModels.Auth
         }
 
         private async Task LoginAsync()
-        {           
+        {
             try
             {
-                await _authService.TryLoginAsync(UserName, Password, AccountType.Admin);
+                await _authService.TryLoginAsync(UserName, Password, SelectedAccountType.AccountType);
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                HandyControl.Controls.MessageBox.Show("Message box text", "Caption", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                HandyControl.Controls.MessageBox.Show(exc.Message, "Caption", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
             }
         }
     }
