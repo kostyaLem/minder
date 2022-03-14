@@ -12,7 +12,7 @@
 
                 <ResourceDictionary Source="\Resources\ImageDictionary.xaml" />
 
-                <hc:Theme Skin="Default" />
+                <hc:Theme Skin="Default" AccentColor="LightGray"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
