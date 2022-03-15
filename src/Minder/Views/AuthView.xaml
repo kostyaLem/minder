@@ -7,7 +7,6 @@
     xmlns:locator="clr-namespace:Minder"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vma="clr-namespace:Minder.ViewModels.Auth"
-    Title="Minder"
     Width="320"
     Height="430"
     d:DataContext="{d:DesignInstance Type=vma:AuthViewModel,
