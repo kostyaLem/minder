@@ -1,13 +1,13 @@
 ﻿using DevExpress.Mvvm;
+using HandyControl.Controls;
 using Minder.Core.Services.Auth;
 using Minder.Helpers.Models;
 using Minder.Helpers.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using MessageBox = HandyControl.Controls.MessageBox;
 
 namespace Minder.ViewModels.Auth
 {
@@ -18,12 +18,6 @@ namespace Minder.ViewModels.Auth
         #region Properties
 
         public string UserName
-        {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
-        }
-
-        public string Password
         {
             get { return GetValue<string>(); }
             set { SetValue(value); }
@@ -40,24 +34,27 @@ namespace Minder.ViewModels.Auth
 
         #endregion
 
-        public ICommand LoginCommand { get; }
+        public ICommand<object> LoginCommand { get; }
 
         public AuthViewModel(IAuthService authService)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
 
-            LoginCommand = new AsyncCommand(LoginAsync);
+            LoginCommand = new AsyncCommand<object>(LoginAsync);
         }
 
-        private async Task LoginAsync()
+        private async Task LoginAsync(object passwordControl)
         {
+            var passwordBox = passwordControl as PasswordBox;
+            var password = passwordBox.Password;
+
             try
             {
-                await _authService.TryLoginAsync(UserName, Password, SelectedAccountType.AccountType);
+                await _authService.TryLoginAsync(UserName, password, SelectedAccountType.AccountType);
             }
             catch (Exception exc)
             {
-                HandyControl.Controls.MessageBox.Show(exc.Message, "Caption", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+                MessageBox.Show(exc.Message, "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
