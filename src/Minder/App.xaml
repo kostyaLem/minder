@@ -5,16 +5,27 @@
     xmlns:hc="https://handyorg.github.io/handycontrol">
 
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary x:Name="wqee">
+
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
 
-                <ResourceDictionary Source="\Resources\ImageDictionary.xaml" />
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
 
-                <hc:Theme Skin="Dark" />
+                        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+
+                        <ResourceDictionary Source="\Resources\ImageDictionary.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
